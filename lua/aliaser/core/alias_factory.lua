@@ -1,4 +1,5 @@
 local Aliases = require("aliaser.core.alias").Aliases
+local OrderedDict = require("aliaser.lib.ordered_dict").OrderedDict
 
 local M = {}
 
@@ -18,16 +19,15 @@ function AliasFactory.create(self)
   return aliases:list()
 end
 
-local factories = {}
+local factories = OrderedDict.new()
 function AliasFactory.register(ns, fn)
-  -- TODO: use ordered dict
   factories[ns] = AliasFactory.new(ns, fn)
 end
 
 function AliasFactory.list_all()
   local all = {}
   local errs = {}
-  for _, factory in pairs(factories) do
+  for _, factory in factories:iter() do
     local raw_aliases, err = factory:create()
     if err then
       table.insert(errs, err)

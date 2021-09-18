@@ -1,4 +1,5 @@
 local Option = require("aliaser.core.option").Option
+local OrderedDict = require("aliaser.lib.ordered_dict").OrderedDict
 local validatelib = require("aliaser.lib.validate")
 
 local M = {}
@@ -13,7 +14,7 @@ M.Aliases = Aliases
 
 function Aliases.new(ns)
   vim.validate({ns = {ns, "string"}})
-  local tbl = {_ns = ns, _aliases = {}, _warnings = {}}
+  local tbl = {_ns = ns, _aliases = OrderedDict.new(), _warnings = {}}
   return setmetatable(tbl, Aliases)
 end
 
@@ -22,7 +23,7 @@ function Aliases.set(self, name, rhs, raw_opts)
   local opts = Option.new(raw_opts)
 
   local key = ("%s/%s"):format(self._ns, name)
-  if opts.unique and self._aliases[key] then
+  if opts.unique and self._aliases:has(key) then
     table.insert(self._warnings, ("`%s` is already exists"):format(key))
     return
   end
@@ -33,13 +34,12 @@ function Aliases.set(self, name, rhs, raw_opts)
     return
   end
 
-  -- TODO: use ordered dict
   self._aliases[key] = alias
 end
 
 function Aliases.list(self)
   local all = {}
-  for _, alias in pairs(self._aliases) do
+  for _, alias in self._aliases:iter() do
     table.insert(all, alias)
   end
 
