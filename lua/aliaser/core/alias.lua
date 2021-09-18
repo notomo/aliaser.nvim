@@ -1,3 +1,6 @@
+local Option = require("aliaser.core.option").Option
+local validatelib = require("aliaser.lib.validate")
+
 local M = {}
 
 local Alias = {}
@@ -14,8 +17,15 @@ function Aliases.new(ns)
   return setmetatable(tbl, Aliases)
 end
 
-function Aliases.set(self, name, rhs)
+function Aliases.set(self, name, rhs, raw_opts)
+  vim.validate({name = {name, "string"}, opts = {raw_opts, "table", true}})
+  local opts = Option.new(raw_opts)
+
   local key = ("%s/%s"):format(self._ns, name)
+  if opts.unique and self._aliases[key] then
+    table.insert(self._warnings, ("`%s` is already exists"):format(key))
+    return
+  end
 
   local alias, err = Alias.new(key, rhs)
   if err then
@@ -42,8 +52,7 @@ function Aliases.list(self)
 end
 
 function Alias.new(name, rhs)
-  -- TODO: validate rhs
-  vim.validate({name = {name, "string"}})
+  vim.validate({rhs = validatelib.type(rhs, "function", "string")})
 
   local fn
   local typ = type(rhs)
@@ -53,8 +62,6 @@ function Alias.new(name, rhs)
     fn = function()
       vim.cmd(rhs)
     end
-  else
-    return nil, ("%s: unexpected type: %s"):format(name, typ)
   end
 
   local tbl = {name = name, _fn = fn}
