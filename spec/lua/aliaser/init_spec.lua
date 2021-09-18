@@ -50,3 +50,22 @@ describe("aliaser.register_factory()", function()
   end)
 
 end)
+
+describe("aliaser.list()", function()
+
+  before_each(helper.before_each)
+  after_each(helper.after_each)
+
+  it("shows an error", function()
+    aliaser.register_factory("test", function(aliases)
+      aliases:set("invalid", 8888)
+      aliases:set("valid", "")
+    end)
+
+    local aliases = aliaser.list()
+
+    assert.exists_message([[test/invalid: unexpected type: number]])
+    assert.length(aliases, 1)
+  end)
+
+end)

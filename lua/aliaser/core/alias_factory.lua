@@ -15,7 +15,7 @@ end
 function AliasFactory.create(self)
   local aliases = Aliases.new(self._ns)
   self._fn(aliases)
-  return aliases:raw()
+  return aliases:list()
 end
 
 local factories = {}
@@ -24,12 +24,23 @@ function AliasFactory.register(ns, fn)
   factories[ns] = AliasFactory.new(ns, fn)
 end
 
-function AliasFactory.list()
-  local raw_aliases = {}
+function AliasFactory.list_all()
+  local all = {}
+  local errs = {}
   for _, factory in pairs(factories) do
-    vim.list_extend(raw_aliases, factory:create())
+    local raw_aliases, err = factory:create()
+    if err then
+      table.insert(errs, err)
+    end
+    vim.list_extend(all, raw_aliases)
   end
-  return raw_aliases
+
+  local err = table.concat(errs, "\n")
+  if err ~= "" then
+    return all, err
+  end
+
+  return all, nil
 end
 
 return M

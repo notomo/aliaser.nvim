@@ -28,7 +28,11 @@ function Command.register_factory(ns, fn)
 end
 
 function Command.list()
-  return AliasFactory.list()
+  local raw_aliases, err = AliasFactory.list_all()
+  if err then
+    messagelib.warn(err)
+  end
+  return raw_aliases
 end
 
 return M
