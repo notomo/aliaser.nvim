@@ -44,4 +44,12 @@ function Command.call(name, ...)
   return alias:call(...)
 end
 
+function Command.to_string(alias)
+  local call = ([[require("aliaser").call(%q]]):format(alias.name)
+  if not alias:need_args() then
+    return ([[%s)]]):format(call)
+  end
+  return ([[%s, %s)]]):format(call, alias:args_string())
+end
+
 return M

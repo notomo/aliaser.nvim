@@ -94,3 +94,61 @@ describe("aliaser.call()", function()
   end)
 
 end)
+
+describe("aliaser.to_string()", function()
+
+  before_each(helper.before_each)
+  after_each(helper.after_each)
+
+  it("can return string for call() with no arguments", function()
+    local called = false
+    aliaser.register_factory("test", function(aliases)
+      aliases:set("call", function()
+        called = true
+      end)
+    end)
+
+    local alias = aliaser.list()[1]
+    local actual = aliaser.to_string(alias)
+
+    assert.equal([[require("aliaser").call("test/call")]], actual)
+
+    vim.fn.luaeval(actual)
+    assert.is_true(called)
+  end)
+
+  it("can return string for call() with arguments", function()
+    local called = false
+    aliaser.register_factory("test", function(aliases)
+      aliases:set("call", function()
+        called = true
+      end, {nargs_max = 2})
+    end)
+
+    local alias = aliaser.list()[1]
+    local actual = aliaser.to_string(alias)
+
+    assert.equal([[require("aliaser").call("test/call", nil, nil)]], actual)
+
+    vim.fn.luaeval(actual)
+    assert.is_true(called)
+  end)
+
+  it("can return string for call() with default arguments", function()
+    local arg1
+    aliaser.register_factory("test", function(aliases)
+      aliases:set("call", function(arg)
+        arg1 = arg
+      end, {nargs_max = 2, default_args = {"arg1"}})
+    end)
+
+    local alias = aliaser.list()[1]
+    local actual = aliaser.to_string(alias)
+
+    assert.equal([[require("aliaser").call("test/call", "arg1", nil)]], actual)
+
+    vim.fn.luaeval(actual)
+    assert.equal("arg1", arg1)
+  end)
+
+end)

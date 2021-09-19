@@ -14,4 +14,8 @@ function M.call(name, ...)
   return Command.new("call", name, ...)
 end
 
+function M.to_string(alias)
+  return Command.new("to_string", alias)
+end
+
 return M

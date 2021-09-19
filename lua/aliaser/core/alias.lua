@@ -28,7 +28,7 @@ function Aliases.set(self, name, rhs, raw_opts)
     return
   end
 
-  local alias, err = Alias.new(key, rhs)
+  local alias, err = Alias.new(key, rhs, opts)
   if err then
     table.insert(self._warnings, err)
     return
@@ -51,8 +51,8 @@ function Aliases.list(self)
   return all, nil
 end
 
-function Alias.new(name, rhs)
-  vim.validate({rhs = validatelib.type(rhs, "function", "string")})
+function Alias.new(name, rhs, opts)
+  vim.validate({rhs = validatelib.type(rhs, "function", "string"), opts = {opts, "table"}})
 
   local fn
   local typ = type(rhs)
@@ -64,12 +64,20 @@ function Alias.new(name, rhs)
     end
   end
 
-  local tbl = {name = name, _fn = fn}
+  local tbl = {name = name, _fn = fn, _opts = opts}
   return setmetatable(tbl, Alias), nil
 end
 
 function Alias.call(self, ...)
   return self._fn(...)
+end
+
+function Alias.need_args(self)
+  return self._opts:need_args()
+end
+
+function Alias.args_string(self)
+  return self._opts:args_string()
 end
 
 return M
