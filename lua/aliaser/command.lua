@@ -31,8 +31,17 @@ function Command.list()
   local raw_aliases, err = AliasFactory.list_all()
   if err then
     messagelib.warn(err)
+    -- no return
   end
   return raw_aliases
+end
+
+function Command.call(name, ...)
+  local alias, err = AliasFactory.find(name)
+  if err then
+    return messagelib.warn(err)
+  end
+  return alias:call(...)
 end
 
 return M

@@ -10,4 +10,8 @@ function M.list()
   return Command.new("list")
 end
 
+function M.call(name, ...)
+  return Command.new("call", name, ...)
+end
+
 return M

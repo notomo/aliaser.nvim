@@ -24,7 +24,7 @@ function Aliases.set(self, name, rhs, raw_opts)
 
   local key = ("%s/%s"):format(self._ns, name)
   if opts.unique and self._aliases:has(key) then
-    table.insert(self._warnings, ("`%s` is already exists"):format(key))
+    table.insert(self._warnings, ("already exists: `%s`"):format(key))
     return
   end
 
@@ -68,9 +68,8 @@ function Alias.new(name, rhs)
   return setmetatable(tbl, Alias), nil
 end
 
-function Alias.call(self)
-  -- TODO: handle error?
-  return self._fn()
+function Alias.call(self, ...)
+  return self._fn(...)
 end
 
 return M

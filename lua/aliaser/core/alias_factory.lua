@@ -43,4 +43,14 @@ function AliasFactory.list_all()
   return all, nil
 end
 
+function AliasFactory.find(name)
+  vim.validate({name = {name, "string"}})
+  for _, alias in ipairs(AliasFactory.list_all()) do
+    if alias.name == name then
+      return alias, nil
+    end
+  end
+  return nil, ("not found alias: `%s`"):format(name)
+end
+
 return M

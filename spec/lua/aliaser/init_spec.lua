@@ -64,8 +64,33 @@ describe("aliaser.list()", function()
 
     local aliases = aliaser.list()
 
-    assert.exists_message([[`test/a` is already exists]])
+    assert.exists_message([[already exists: `test/a`]])
     assert.length(aliases, 1)
+  end)
+
+end)
+
+describe("aliaser.call()", function()
+
+  before_each(helper.before_each)
+  after_each(helper.after_each)
+
+  it("calls an alias by name", function()
+    aliaser.register_factory("test", function(aliases)
+      aliases:set("call", function(arg)
+        return 1, arg
+      end)
+    end)
+
+    local res1, res2 = aliaser.call("test/call", 2)
+
+    assert.is_same(1, res1)
+    assert.is_same(2, res2)
+  end)
+
+  it("shows not found error", function()
+    aliaser.call("test/not_found")
+    assert.exists_message([[not found alias: `test/not_found`]])
   end)
 
 end)
