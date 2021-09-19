@@ -1,4 +1,5 @@
 local Option = require("aliaser.core.option").Option
+local DefinedLocation = require("aliaser.core.defined_location").DefinedLocation
 local OrderedDict = require("aliaser.lib.ordered_dict").OrderedDict
 local validatelib = require("aliaser.lib.validate")
 
@@ -64,7 +65,14 @@ function Alias.new(name, rhs, opts)
     end
   end
 
-  local tbl = {name = name, _fn = fn, _opts = opts}
+  local defined_location = DefinedLocation.new(rhs, 4)
+  local tbl = {
+    name = name,
+    start_row = defined_location.start_row,
+    file_path = defined_location.file_path,
+    _fn = fn,
+    _opts = opts,
+  }
   return setmetatable(tbl, Alias), nil
 end
 
