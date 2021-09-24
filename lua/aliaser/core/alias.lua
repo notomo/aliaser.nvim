@@ -52,6 +52,8 @@ function Aliases.list(self)
   return all, nil
 end
 
+-- TODO: alias doc
+
 function Alias.new(name, rhs, opts)
   vim.validate({rhs = validatelib.type(rhs, "function", "string"), opts = {opts, "table"}})
 

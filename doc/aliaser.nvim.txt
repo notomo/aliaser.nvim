@@ -1,0 +1,47 @@
+*aliaser.nvim.txt*
+
+==============================================================================
+Lua module: aliaser                                     *aliaser.nvim-aliaser*
+
+register_factory({ns}, {fn})                      *aliaser.register_factory()*
+  Register an alias factory function.
+
+  Parameters: ~
+    {ns} (string) namespace for aliases
+    {fn} (function) register aliases in this function
+
+list()                                                        *aliaser.list()*
+  Gets registered aliases.
+
+call({name})                                                  *aliaser.call()*
+  Call an alias by name.
+
+  Parameters: ~
+    {name} (string) alias name
+    {...} (any) alias function arguments
+
+to_string({alias})                                       *aliaser.to_string()*
+  Converts an alias to string.
+
+  Parameters: ~
+    {alias} (table) alias object
+
+==============================================================================
+EXAMPLES                                               *aliaser.nvim-EXAMPLES*
+
+>
+  local aliaser = require("aliaser")
+
+  aliaser.register_factory("example", function(aliases)
+    aliases:set("clear_messages", "messages clear")
+    aliases:set("rename", function()
+      vim.fn.feedkeys(":file ", "n")
+    end)
+  end)
+
+  local alias = aliaser.list()[1]
+  alias:call() -- messages clear
+<
+
+==============================================================================
+vim:tw=78:ts=8:ft=help
