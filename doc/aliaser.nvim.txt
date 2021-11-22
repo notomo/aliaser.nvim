@@ -13,7 +13,7 @@ register_factory({ns}, {fn})                      *aliaser.register_factory()*
 list()                                                        *aliaser.list()*
   Gets registered aliases.
 
-call({name})                                                  *aliaser.call()*
+call({name}, {...})                                           *aliaser.call()*
   Call an alias by name.
 
   Parameters: ~
