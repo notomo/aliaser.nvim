@@ -13,6 +13,9 @@ register_factory({ns}, {fn})                      *aliaser.register_factory()*
 list()                                                        *aliaser.list()*
   Gets registered aliases.
 
+  Return: ~
+    (table) {name = (string), file_path = (string), start_row = (number)}[]
+
 call({name}, {...})                                           *aliaser.call()*
   Call an alias by name.
 
@@ -20,11 +23,17 @@ call({name}, {...})                                           *aliaser.call()*
     {name} (string) alias name
     {...} (any) alias function arguments
 
+  Return: ~
+    (any) alias function result
+
 to_string({alias})                                       *aliaser.to_string()*
   Converts an alias to string.
 
   Parameters: ~
     {alias} (table) alias object
+
+  Return: ~
+    (string) lua expression to call the alias
 
 ==============================================================================
 EXAMPLES                                               *aliaser.nvim-EXAMPLES*
