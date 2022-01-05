@@ -1,7 +1,7 @@
 local M = {}
 
 function M.type(value, ...)
-  local types = {...}
+  local types = { ... }
   return {
     value,
     function(x)

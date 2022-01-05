@@ -23,7 +23,7 @@ function Command.new(name, ...)
 end
 
 function Command.register_factory(ns, fn)
-  vim.validate({ns = {ns, "string"}, fn = {fn, "function"}})
+  vim.validate({ ns = { ns, "string" }, fn = { fn, "function" } })
   AliasFactory.register(ns, fn)
 end
 

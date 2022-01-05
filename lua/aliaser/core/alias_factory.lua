@@ -8,8 +8,8 @@ AliasFactory.__index = AliasFactory
 M.AliasFactory = AliasFactory
 
 function AliasFactory.new(ns, fn)
-  vim.validate({ns = {ns, "string"}, fn = {fn, "function"}})
-  local tbl = {_ns = ns, _fn = fn}
+  vim.validate({ ns = { ns, "string" }, fn = { fn, "function" } })
+  local tbl = { _ns = ns, _fn = fn }
   return setmetatable(tbl, AliasFactory)
 end
 
@@ -44,7 +44,7 @@ function AliasFactory.list_all()
 end
 
 function AliasFactory.find(name)
-  vim.validate({name = {name, "string"}})
+  vim.validate({ name = { name, "string" } })
   for _, alias in ipairs(AliasFactory.list_all()) do
     if alias.name == name then
       return alias, nil

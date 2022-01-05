@@ -14,13 +14,13 @@ Aliases.__index = Aliases
 M.Aliases = Aliases
 
 function Aliases.new(ns)
-  vim.validate({ns = {ns, "string"}})
-  local tbl = {_ns = ns, _aliases = OrderedDict.new(), _warnings = {}}
+  vim.validate({ ns = { ns, "string" } })
+  local tbl = { _ns = ns, _aliases = OrderedDict.new(), _warnings = {} }
   return setmetatable(tbl, Aliases)
 end
 
 function Aliases.set(self, name, rhs, raw_opts)
-  vim.validate({name = {name, "string"}, opts = {raw_opts, "table", true}})
+  vim.validate({ name = { name, "string" }, opts = { raw_opts, "table", true } })
   local opts = Option.new(raw_opts)
 
   local key = ("%s/%s"):format(self._ns, name)
@@ -55,7 +55,7 @@ end
 -- TODO: alias doc
 
 function Alias.new(name, rhs, opts)
-  vim.validate({rhs = validatelib.type(rhs, "function", "string"), opts = {opts, "table"}})
+  vim.validate({ rhs = validatelib.type(rhs, "function", "string"), opts = { opts, "table" } })
 
   local fn
   local typ = type(rhs)

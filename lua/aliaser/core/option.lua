@@ -5,7 +5,7 @@ Option.__index = Option
 M.Option = Option
 
 function Option.new(opts)
-  vim.validate({opts = {opts, "table", true}})
+  vim.validate({ opts = { opts, "table", true } })
   opts = opts or {}
   local tbl = {
     unique = opts.unique or false,
@@ -20,9 +20,9 @@ function Option.need_args(self)
 end
 
 function Option.args_string(self)
-  local args = vim.fn["repeat"]({"nil"}, self._nargs_max)
+  local args = vim.fn["repeat"]({ "nil" }, self._nargs_max)
   for i, v in ipairs(self._default_args) do
-    args[i] = vim.inspect(v, {newline = " ", indent = ""})
+    args[i] = vim.inspect(v, { newline = " ", indent = "" })
   end
   return table.concat(args, ", ")
 end

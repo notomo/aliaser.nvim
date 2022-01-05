@@ -5,7 +5,7 @@ DefinedLocation.__index = DefinedLocation
 M.DefinedLocation = DefinedLocation
 
 function DefinedLocation.new(rhs, depth)
-  vim.validate({depth = {depth, "number"}})
+  vim.validate({ depth = { depth, "number" } })
 
   local info
   local start_row
@@ -22,7 +22,7 @@ function DefinedLocation.new(rhs, depth)
     file_path = info.source:sub(2)
   end
 
-  local tbl = {start_row = start_row, file_path = file_path}
+  local tbl = { start_row = start_row, file_path = file_path }
   return setmetatable(tbl, DefinedLocation)
 end
 

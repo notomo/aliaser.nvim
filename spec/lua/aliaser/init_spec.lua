@@ -2,7 +2,6 @@ local helper = require("aliaser.lib.testlib.helper")
 local aliaser = helper.require("aliaser")
 
 describe("aliaser.register_factory()", function()
-
   before_each(helper.before_each)
   after_each(helper.after_each)
 
@@ -48,18 +47,16 @@ describe("aliaser.register_factory()", function()
 
     assert.length(aliaser.list(), 2)
   end)
-
 end)
 
 describe("aliaser.list()", function()
-
   before_each(helper.before_each)
   after_each(helper.after_each)
 
   it("shows already exists error", function()
     aliaser.register_factory("test", function(aliases)
       aliases:set("a", "")
-      aliases:set("a", "", {unique = true})
+      aliases:set("a", "", { unique = true })
     end)
 
     local aliases = aliaser.list()
@@ -85,11 +82,9 @@ describe("aliaser.list()", function()
     assert.equal(3, alias.start_row)
     assert.equal(helper.root .. "/lua/aliaser/lib/testlib/testdata/function_in_3.lua", alias.file_path)
   end)
-
 end)
 
 describe("aliaser.call()", function()
-
   before_each(helper.before_each)
   after_each(helper.after_each)
 
@@ -110,11 +105,9 @@ describe("aliaser.call()", function()
     aliaser.call("test/not_found")
     assert.exists_message([[not found alias: `test/not_found`]])
   end)
-
 end)
 
 describe("aliaser.to_string()", function()
-
   before_each(helper.before_each)
   after_each(helper.after_each)
 
@@ -140,7 +133,7 @@ describe("aliaser.to_string()", function()
     aliaser.register_factory("test", function(aliases)
       aliases:set("call", function()
         called = true
-      end, {nargs_max = 2})
+      end, { nargs_max = 2 })
     end)
 
     local alias = aliaser.list()[1]
@@ -157,7 +150,7 @@ describe("aliaser.to_string()", function()
     aliaser.register_factory("test", function(aliases)
       aliases:set("call", function(arg)
         arg1 = arg
-      end, {nargs_max = 2, default_args = {"arg1"}})
+      end, { nargs_max = 2, default_args = { "arg1" } })
     end)
 
     local alias = aliaser.list()[1]
@@ -168,5 +161,4 @@ describe("aliaser.to_string()", function()
     vim.fn.luaeval(actual)
     assert.equal("arg1", arg1)
   end)
-
 end)

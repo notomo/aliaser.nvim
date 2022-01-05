@@ -3,8 +3,7 @@ local M = require("vusted.helper")
 
 M.root = M.find_plugin_root(plugin_name)
 
-function M.before_each()
-end
+function M.before_each() end
 
 function M.after_each()
   vim.cmd("tabedit")
