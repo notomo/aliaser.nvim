@@ -1,6 +1,10 @@
-local example_path = "./spec/lua/aliaser/example.lua"
+local util = require("genvdoc.util")
+local plugin_name = vim.env.PLUGIN_NAME
+local full_plugin_name = plugin_name .. ".nvim"
 
-require("genvdoc").generate("aliaser.nvim", {
+local example_path = ("./spec/lua/%s/example.lua"):format(plugin_name)
+
+require("genvdoc").generate(full_plugin_name, {
   chapters = {
     {
       name = function(group)
@@ -16,7 +20,7 @@ require("genvdoc").generate("aliaser.nvim", {
     {
       name = "EXAMPLES",
       body = function()
-        return require("genvdoc.util").help_code_block_from_file(example_path)
+        return util.help_code_block_from_file(example_path)
       end,
     },
   },
@@ -28,7 +32,7 @@ local gen_readme = function()
   f:close()
 
   local content = ([[
-# aliaser.nvim
+# %s
 
 A plugin to put command/function without mapping.
 Mainly use as a finder plugin's source.
@@ -36,7 +40,7 @@ Mainly use as a finder plugin's source.
 ## Example
 
 ```lua
-%s```]]):format(exmaple)
+%s```]]):format(full_plugin_name, exmaple)
 
   local readme = io.open("README.md", "w")
   readme:write(content)

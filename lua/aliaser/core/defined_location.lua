@@ -1,8 +1,5 @@
-local M = {}
-
 local DefinedLocation = {}
 DefinedLocation.__index = DefinedLocation
-M.DefinedLocation = DefinedLocation
 
 function DefinedLocation.new(rhs, depth)
   vim.validate({ depth = { depth, "number" } })
@@ -26,4 +23,4 @@ function DefinedLocation.new(rhs, depth)
   return setmetatable(tbl, DefinedLocation)
 end
 
-return M
+return DefinedLocation

@@ -1,11 +1,5 @@
-local Aliases = require("aliaser.core.alias").Aliases
-local OrderedDict = require("aliaser.lib.ordered_dict").OrderedDict
-
-local M = {}
-
 local AliasFactory = {}
 AliasFactory.__index = AliasFactory
-M.AliasFactory = AliasFactory
 
 function AliasFactory.new(ns, fn)
   vim.validate({ ns = { ns, "string" }, fn = { fn, "function" } })
@@ -14,12 +8,12 @@ function AliasFactory.new(ns, fn)
 end
 
 function AliasFactory.create(self)
-  local aliases = Aliases.new(self._ns)
+  local aliases = require("aliaser.core.aliases").new(self._ns)
   self._fn(aliases)
   return aliases:list()
 end
 
-local factories = OrderedDict.new()
+local factories = require("aliaser.lib.ordered_dict").new()
 function AliasFactory.register(ns, fn)
   factories[ns] = AliasFactory.new(ns, fn)
 end
@@ -53,4 +47,4 @@ function AliasFactory.find(name)
   return nil, ("not found alias: `%s`"):format(name)
 end
 
-return M
+return AliasFactory

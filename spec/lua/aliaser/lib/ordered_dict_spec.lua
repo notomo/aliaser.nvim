@@ -10,7 +10,7 @@ describe("aliaser.lib.ordered_dict", function()
     { items = { { key = "a", value = 1 }, { key = "a", value = 2 } }, expected = { { key = "a", value = 2 } } },
     {
       items = { { key = "a", value = 1 }, { key = "b", value = 1 }, { key = "a", value = 2 } },
-      expected = { { key = "b", value = 1 }, { key = "a", value = 2 } },
+      expected = { { key = "a", value = 2 }, { key = "b", value = 1 } },
     },
     { items = { { key = "a", value = 1 }, { key = "a", value = nil } }, expected = {} },
   }) do
@@ -23,7 +23,7 @@ describe("aliaser.lib.ordered_dict", function()
         })
       ),
       function()
-        local dict = require("aliaser.lib.ordered_dict").OrderedDict.new()
+        local dict = require("aliaser.lib.ordered_dict").new()
         for _, item in ipairs(c.items) do
           dict[item.key] = item.value
         end

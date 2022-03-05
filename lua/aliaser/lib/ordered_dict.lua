@@ -1,15 +1,12 @@
 local M = {}
+M.__index = M
 
-local OrderedDict = {}
-OrderedDict.__index = OrderedDict
-M.OrderedDict = OrderedDict
-
-function OrderedDict.new()
+function M.new()
   local tbl = { _data = {}, _indexes = {}, _index = 0 }
-  return setmetatable(tbl, OrderedDict)
+  return setmetatable(tbl, M)
 end
 
-function OrderedDict.raw(self)
+function M.raw(self)
   local items = {}
   for k, v in self:iter() do
     table.insert(items, { key = k, value = v })
@@ -17,7 +14,7 @@ function OrderedDict.raw(self)
   return items
 end
 
-function OrderedDict.iter(self)
+function M.iter(self)
   local items = {}
   for k, v in pairs(self._data) do
     table.insert(items, { value = v, key = k, index = self._indexes[k] })
@@ -39,18 +36,43 @@ function OrderedDict.iter(self)
   end
 end
 
-function OrderedDict.get(self, k)
-  return self._data[k]
+function M.merge(self, tbl)
+  local new_dict = M.new()
+  for k, v in self:iter() do
+    new_dict[k] = v
+  end
+  for k, v in pairs(tbl) do
+    new_dict[k] = v
+  end
+  return new_dict
 end
 
-function OrderedDict.has(self, k)
-  return self:get(k) ~= nil
+function M.has(self, k)
+  return self._data[k] ~= nil
 end
 
-function OrderedDict.__newindex(self, k, v)
-  self._index = self._index + 1
+function M.values(self)
+  local values = {}
+  for _, v in self:iter() do
+    table.insert(values, v)
+  end
+  return values
+end
+
+function M.__index(self, k)
+  local method = M[k]
+  if method then
+    return method
+  end
+  return rawget(self._data, k)
+end
+
+function M.__newindex(self, k, v)
+  if not self._indexes[k] then
+    self._index = self._index + 1
+    self._indexes[k] = self._index
+  end
   self._data[k] = v
-  self._indexes[k] = self._index
 end
 
 return M
