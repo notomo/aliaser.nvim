@@ -3,7 +3,7 @@ Aliases.__index = Aliases
 
 function Aliases.new(ns)
   vim.validate({ ns = { ns, "string" } })
-  local tbl = { _ns = ns, _aliases = require("aliaser.lib.ordered_dict").new(), _warnings = {} }
+  local tbl = { _ns = ns, _aliases = require("aliaser.vendor.collection.ordered_dict").new(), _warnings = {} }
   return setmetatable(tbl, Aliases)
 end
 

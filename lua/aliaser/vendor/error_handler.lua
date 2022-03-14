@@ -1,5 +1,5 @@
 local plugin_name = vim.split((...):gsub("%.", "/"), "/", true)[1]
-local messagelib = require(plugin_name .. ".lib.message")
+local messagelib = require(plugin_name .. ".vendor.message")
 
 local M = {}
 M.__index = M
