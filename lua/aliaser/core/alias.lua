@@ -4,7 +4,10 @@ Alias.__index = Alias
 -- TODO: alias doc
 
 function Alias.new(name, rhs, opts)
-  vim.validate({ rhs = require("aliaser.lib.validate").type(rhs, "function", "string"), opts = { opts, "table" } })
+  vim.validate({
+    rhs = { rhs, { "function", "string" } },
+    opts = { opts, "table" },
+  })
 
   local fn
   local typ = type(rhs)
