@@ -1,4 +1,4 @@
-local helper = require("aliaser.lib.testlib.helper")
+local helper = require("aliaser.test.helper")
 local aliaser = helper.require("aliaser")
 
 describe("aliaser.register_factory()", function()
@@ -66,21 +66,21 @@ describe("aliaser.list()", function()
   end)
 
   it("has file_path and start_row with string alias", function()
-    require("aliaser.lib.testlib.testdata.string_in_2")
+    require("aliaser.test.data.string_in_2")
 
     local alias = aliaser.list()[1]
 
     assert.equal(2, alias.start_row)
-    assert.equal(helper.root .. "/lua/aliaser/lib/testlib/testdata/string_in_2.lua", alias.file_path)
+    assert.equal(helper.root .. "/lua/aliaser/test/data/string_in_2.lua", alias.file_path)
   end)
 
   it("has file_path and start_row with function alias", function()
-    require("aliaser.lib.testlib.testdata.function_in_3")
+    require("aliaser.test.data.function_in_3")
 
     local alias = aliaser.list()[1]
 
     assert.equal(3, alias.start_row)
-    assert.equal(helper.root .. "/lua/aliaser/lib/testlib/testdata/function_in_3.lua", alias.file_path)
+    assert.equal(helper.root .. "/lua/aliaser/test/data/function_in_3.lua", alias.file_path)
   end)
 end)
 
