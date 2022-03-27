@@ -1,6 +1,6 @@
-local ReturnValue = require("aliaser.vendor.error_handler").for_return_value()
-local ReturnPackedValue = require("aliaser.vendor.error_handler").for_return_packed_value()
-local ShowError = require("aliaser.vendor.error_handler").for_show_error()
+local ReturnValue = require("aliaser.vendor.misclib.error_handler").for_return_value()
+local ReturnPackedValue = require("aliaser.vendor.misclib.error_handler").for_return_packed_value()
+local ShowError = require("aliaser.vendor.misclib.error_handler").for_show_error()
 
 local AliasFactory = require("aliaser.core.alias_factory")
 
@@ -13,7 +13,7 @@ function ReturnValue.list()
   local raw_aliases, err = AliasFactory.list_all()
   if err then
     -- no return
-    require("aliaser.vendor.message").warn(err)
+    require("aliaser.vendor.misclib.message").warn(err)
   end
   return raw_aliases
 end

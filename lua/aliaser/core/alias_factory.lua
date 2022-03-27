@@ -13,7 +13,7 @@ function AliasFactory.create(self)
   return aliases:list()
 end
 
-local factories = require("aliaser.vendor.collection.ordered_dict").new()
+local factories = require("aliaser.vendor.misclib.collection.ordered_dict").new()
 function AliasFactory.register(ns, fn)
   factories[ns] = AliasFactory.new(ns, fn)
 end
