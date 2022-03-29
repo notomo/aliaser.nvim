@@ -20,21 +20,15 @@ end
 
 function AliasFactory.list_all()
   local all = {}
-  local errs = {}
+  local errs = require("aliaser.vendor.misclib.multi_error").new()
   for _, factory in factories:iter() do
     local raw_aliases, err = factory:create()
     if err then
-      table.insert(errs, err)
+      errs:add(err)
     end
     vim.list_extend(all, raw_aliases)
   end
-
-  local err = table.concat(errs, "\n")
-  if err ~= "" then
-    return all, err
-  end
-
-  return all, nil
+  return all, errs:error()
 end
 
 function AliasFactory.find(name)

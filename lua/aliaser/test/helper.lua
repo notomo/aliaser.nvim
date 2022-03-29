@@ -10,7 +10,6 @@ function M.after_each()
   vim.cmd("tabonly!")
   vim.cmd("silent %bwipeout!")
   M.cleanup_loaded_modules(plugin_name)
-  print(" ")
 end
 
 local asserts = require("vusted.assert").asserts
