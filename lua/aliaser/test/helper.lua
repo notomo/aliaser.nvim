@@ -1,15 +1,13 @@
 local plugin_name = vim.split((...):gsub("%.", "/"), "/", true)[1]
-local M = require("vusted.helper")
+local helper = require("vusted.helper")
 
-M.root = M.find_plugin_root(plugin_name)
+helper.root = helper.find_plugin_root(plugin_name)
 
-function M.before_each() end
+function helper.before_each() end
 
-function M.after_each()
-  vim.cmd("tabedit")
-  vim.cmd("tabonly!")
-  vim.cmd("silent %bwipeout!")
-  M.cleanup_loaded_modules(plugin_name)
+function helper.after_each()
+  helper.cleanup()
+  helper.cleanup_loaded_modules(plugin_name)
 end
 
 local asserts = require("vusted.assert").asserts
@@ -33,4 +31,4 @@ asserts.create("exists_message"):register(function(self)
   end
 end)
 
-return M
+return helper
