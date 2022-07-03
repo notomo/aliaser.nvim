@@ -31,6 +31,8 @@ function AliasFactory.list_all()
   return all, errs:error()
 end
 
+--- @return table: alias
+--- @return string|nil: error
 function AliasFactory.find(name)
   vim.validate({ name = { name, "string" } })
   for _, alias in ipairs(AliasFactory.list_all()) do
