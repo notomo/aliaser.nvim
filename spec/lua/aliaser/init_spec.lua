@@ -162,3 +162,23 @@ describe("aliaser.to_string()", function()
     assert.equal("arg1", arg1)
   end)
 end)
+
+describe("aliaser.clear_all()", function()
+  before_each(helper.before_each)
+  after_each(helper.after_each)
+
+  it("clears all aliases", function()
+    aliaser.register_factory("test1", function(aliases)
+      aliases:set("a", "")
+      aliases:set("b", "")
+    end)
+    aliaser.register_factory("test2", function(aliases)
+      aliases:set("c", "")
+    end)
+
+    aliaser.clear_all()
+
+    local aliases = aliaser.list()
+    assert.length(aliases, 0)
+  end)
+end)

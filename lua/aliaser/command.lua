@@ -34,4 +34,8 @@ function ReturnValue.to_string(alias)
   return ([[%s, %s)]]):format(call, alias:args_string())
 end
 
+function ShowError.clear_all()
+  return AliasFactory.clear_all()
+end
+
 return vim.tbl_extend("force", ReturnValue:methods(), ReturnPackedValue:methods(), ShowError:methods())

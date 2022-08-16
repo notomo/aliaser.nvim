@@ -35,6 +35,9 @@ to_string({alias})                                       *aliaser.to_string()*
   Return: ~
     (string) lua expression to call the alias
 
+clear_all()                                              *aliaser.clear_all()*
+  Clear all registered aliases.
+
 ==============================================================================
 EXAMPLES                                               *aliaser.nvim-EXAMPLES*
 

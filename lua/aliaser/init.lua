@@ -28,4 +28,9 @@ function M.to_string(alias)
   return require("aliaser.command").to_string(alias)
 end
 
+--- Clear all registered aliases.
+function M.clear_all()
+  return require("aliaser.command").clear_all()
+end
+
 return M
