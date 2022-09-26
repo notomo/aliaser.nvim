@@ -45,7 +45,7 @@ describe("aliaser.register_factory()", function()
       aliases:set("2", "")
     end)
 
-    assert.length(aliaser.list(), 2)
+    assert.list_length(aliaser.list(), 2)
   end)
 end)
 
@@ -62,7 +62,7 @@ describe("aliaser.list()", function()
     local aliases = aliaser.list()
 
     assert.exists_message([[already exists: `test/a`]])
-    assert.length(aliases, 1)
+    assert.list_length(aliases, 1)
   end)
 
   it("has file_path and start_row with string alias", function()
@@ -179,6 +179,6 @@ describe("aliaser.clear_all()", function()
     aliaser.clear_all()
 
     local aliases = aliaser.list()
-    assert.length(aliases, 0)
+    assert.list_length(aliases, 0)
   end)
 end)
