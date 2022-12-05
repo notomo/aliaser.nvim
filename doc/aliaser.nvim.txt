@@ -41,7 +41,7 @@ clear_all()                                              *aliaser.clear_all()*
 ==============================================================================
 EXAMPLES                                               *aliaser.nvim-EXAMPLES*
 
->
+>lua
   local aliaser = require("aliaser")
 
   aliaser.register_factory("example", function(aliases)
