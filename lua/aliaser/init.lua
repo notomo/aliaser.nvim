@@ -30,7 +30,7 @@ end
 
 --- Clear all registered aliases.
 function M.clear_all()
-  return require("aliaser.command").clear_all()
+  require("aliaser.command").clear_all()
 end
 
 return M

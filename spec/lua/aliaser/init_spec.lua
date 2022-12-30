@@ -102,8 +102,12 @@ describe("aliaser.call()", function()
   end)
 
   it("shows not found error", function()
-    aliaser.call("test/not_found")
-    assert.exists_message([[not found alias: `test/not_found`]])
+    local ok, err = pcall(function()
+      aliaser.call("test/not_found")
+    end)
+    assert.is_false(ok)
+
+    assert.match([[not found alias: `test/not_found`]], err)
   end)
 end)
 

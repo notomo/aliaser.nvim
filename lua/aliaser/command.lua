@@ -1,15 +1,16 @@
-local ReturnValue = require("aliaser.vendor.misclib.error_handler").for_return_value()
-local ReturnPackedValue = require("aliaser.vendor.misclib.error_handler").for_return_packed_value()
-local ShowError = require("aliaser.vendor.misclib.error_handler").for_show_error()
+local M = {}
 
 local AliasFactory = require("aliaser.core.alias_factory")
 
-function ShowError.register_factory(ns, fn)
-  vim.validate({ ns = { ns, "string" }, fn = { fn, "function" } })
-  return AliasFactory.register(ns, fn)
+function M.register_factory(ns, fn)
+  vim.validate({
+    ns = { ns, "string" },
+    fn = { fn, "function" },
+  })
+  AliasFactory.register(ns, fn)
 end
 
-function ReturnValue.list()
+function M.list()
   local raw_aliases, err = AliasFactory.list_all()
   if err then
     -- no return
@@ -18,15 +19,15 @@ function ReturnValue.list()
   return raw_aliases
 end
 
-function ReturnPackedValue.call(name, ...)
+function M.call(name, ...)
   local alias, err = AliasFactory.find(name)
   if err then
-    return nil, err
+    require("aliaser.vendor.misclib.message").error(err)
   end
-  return vim.F.pack_len(alias:call(...))
+  return alias:call(...)
 end
 
-function ReturnValue.to_string(alias)
+function M.to_string(alias)
   local call = ([[require("aliaser").call(%q]]):format(alias.name)
   if not alias:need_args() then
     return ([[%s)]]):format(call)
@@ -34,8 +35,8 @@ function ReturnValue.to_string(alias)
   return ([[%s, %s)]]):format(call, alias:args_string())
 end
 
-function ShowError.clear_all()
-  return AliasFactory.clear_all()
+function M.clear_all()
+  AliasFactory.clear_all()
 end
 
-return vim.tbl_extend("force", ReturnValue:methods(), ReturnPackedValue:methods(), ShowError:methods())
+return M
