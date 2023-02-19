@@ -8,13 +8,13 @@ register_factory({ns}, {fn})                      *aliaser.register_factory()*
 
   Parameters: ~
     {ns} (string) namespace for aliases
-    {fn} (function) register aliases in this function
+    {fn} (fun(aliases:Aliases)) register aliases in this function. ref: |aliaser.Aliases|
 
 list()                                                        *aliaser.list()*
   Gets registered aliases.
 
   Return: ~
-    (table) {name = (string), file_path = (string), start_row = (number)}[]
+    (Alias[]) ref: |aliaser.Alias|
 
 call({name}, {...})                                           *aliaser.call()*
   Call an alias by name.
@@ -30,13 +30,34 @@ to_string({alias})                                       *aliaser.to_string()*
   Converts an alias to string.
 
   Parameters: ~
-    {alias} (table) alias object
+    {alias} (Alias) |aliaser.Alias|
 
   Return: ~
     (string) lua expression to call the alias
 
 clear_all()                                              *aliaser.clear_all()*
   Clear all registered aliases.
+
+==============================================================================
+STRUCTURE                                             *aliaser.nvim-STRUCTURE*
+
+Alias                                                          *aliaser.Alias*
+
+- {name} (string)
+- {file_path} (string) alias function defined file path
+- {start_row} (integer) alias function defined positon row
+- {call} (fun(self:Alias,...):any) call alias function.
+- {need_args} (fun(self:Alias):boolean) returns true if alias function needs arguments.
+
+AliasOption                                              *aliaser.AliasOption*
+
+- {unique} (boolean) if true, aliaser.list() shows warnings
+- {nargs_max} (integer) alias function max number of argument
+- {default_args} (string[])
+
+Aliases                                                      *aliaser.Aliases*
+
+- {set} (fun(self:Aliases,name:string,rhs:string|fun(),opts:AliasOption?))
 
 ==============================================================================
 EXAMPLES                                               *aliaser.nvim-EXAMPLES*

@@ -1,8 +1,6 @@
 local Alias = {}
 Alias.__index = Alias
 
--- TODO: alias doc
-
 function Alias.new(name, rhs, opts)
   vim.validate({
     rhs = { rhs, { "function", "string" } },
