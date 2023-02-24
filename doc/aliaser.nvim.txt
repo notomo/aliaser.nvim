@@ -8,13 +8,13 @@ register_factory({ns}, {fn})                      *aliaser.register_factory()*
 
   Parameters: ~
     {ns} (string) namespace for aliases
-    {fn} (fun(aliases:aliaser_aliases)) register aliases in this function. |aliaser_aliases|
+    {fn} (fun(aliases:AliaserAliases)) register aliases in this function. |AliaserAliases|
 
 list()                                                        *aliaser.list()*
   Gets registered aliases.
 
   Return: ~
-    (aliser_alias[]) |aliaser_alias|
+    (AliserAlias[]) |AliserAlias|
 
 call({name}, {...})                                           *aliaser.call()*
   Call an alias by name.
@@ -30,7 +30,7 @@ to_string({alias})                                       *aliaser.to_string()*
   Converts an alias to string.
 
   Parameters: ~
-    {alias} (aliser_alias) |aliaser_alias|
+    {alias} (AliserAlias) |AliserAlias|
 
   Return: ~
     (string) lua expression to call the alias
@@ -41,23 +41,23 @@ clear_all()                                              *aliaser.clear_all()*
 ==============================================================================
 STRUCTURE                                             *aliaser.nvim-STRUCTURE*
 
-aliser_alias                                                    *aliser_alias*
+AliserAlias                                                      *AliserAlias*
 
 - {name} (string)
 - {file_path} (string) alias function defined file path
 - {start_row} (integer) alias function defined positon row
-- {call} (fun(self:aliser_alias,...):any) call alias function.
-- {need_args} (fun(self:aliser_alias):boolean) returns true if alias function needs arguments.
+- {call} (fun(self:AliserAlias,...):any) call alias function.
+- {need_args} (fun(self:AliserAlias):boolean) returns true if alias function needs arguments.
 
-aliaser_alias_option                                    *aliaser_alias_option*
+AliaserAliasOption                                        *AliaserAliasOption*
 
 - {unique} (boolean) aliaser.list() shows warnings if alias name is not unique.
 - {nargs_max} (integer) alias function max number of argument
 - {default_args} (string[]) alias function defualt arguments
 
-aliaser_aliases                                              *aliaser_aliases*
+AliaserAliases                                                *AliaserAliases*
 
-- {set} (fun(self:aliaser_aliases,name:string,rhs:string|fun(),opts:aliaser_alias_option?))
+- {set} (fun(self:AliaserAliases,name:string,rhs:string|fun(),opts:AliaserAliasOption?)) |AliaserAliasOption|
 
 ==============================================================================
 EXAMPLES                                               *aliaser.nvim-EXAMPLES*
