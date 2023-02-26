@@ -51,9 +51,9 @@ AliserAlias                                                      *AliserAlias*
 
 AliaserAliasOption                                        *AliaserAliasOption*
 
-- {unique} (boolean) aliaser.list() shows warnings if alias name is not unique.
-- {nargs_max} (integer) alias function max number of argument
-- {default_args} (string[]) alias function defualt arguments
+- {unique} (boolean?) aliaser.list() shows warnings if alias name is not unique.
+- {nargs_max} (integer?) alias function max number of argument
+- {default_args} (string[]?) alias function defualt arguments
 
 AliaserAliases                                                *AliaserAliases*
 

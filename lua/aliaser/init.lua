@@ -8,9 +8,9 @@ local M = {}
 --- @field need_args fun(self:AliserAlias):boolean returns true if alias function needs arguments.
 
 --- @class AliaserAliasOption
---- @field unique boolean aliaser.list() shows warnings if alias name is not unique.
---- @field nargs_max integer alias function max number of argument
---- @field default_args string[] alias function defualt arguments
+--- @field unique boolean? aliaser.list() shows warnings if alias name is not unique.
+--- @field nargs_max integer? alias function max number of argument
+--- @field default_args string[]? alias function defualt arguments
 
 --- @class AliaserAliases
 --- @field set fun(self:AliaserAliases,name:string,rhs:string|fun(),opts:AliaserAliasOption?) |AliaserAliasOption|
