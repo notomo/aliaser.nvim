@@ -30,7 +30,7 @@ end
 
 --- Call an alias by name.
 --- @param name string: alias name
---- @vararg any: alias function arguments
+--- @param ... any alias function arguments
 --- @return any: alias function result
 function M.call(name, ...)
   return require("aliaser.command").call(name, ...)
