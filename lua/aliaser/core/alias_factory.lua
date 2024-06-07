@@ -3,7 +3,10 @@ AliasFactory.__index = AliasFactory
 
 function AliasFactory.new(ns, fn)
   vim.validate({ ns = { ns, "string" }, fn = { fn, "function" } })
-  local tbl = { _ns = ns, _fn = fn }
+  local tbl = {
+    _ns = ns,
+    _fn = fn,
+  }
   return setmetatable(tbl, AliasFactory)
 end
 
@@ -36,16 +39,14 @@ function AliasFactory.list_all()
   return all, errs:error()
 end
 
---- @return table: alias
---- @return string|nil: error
 function AliasFactory.find(name)
   vim.validate({ name = { name, "string" } })
   for _, alias in ipairs(AliasFactory.list_all()) do
     if alias.name == name then
-      return alias, nil
+      return alias
     end
   end
-  return nil, ("not found alias: `%s`"):format(name)
+  return ("not found alias: `%s`"):format(name)
 end
 
 return AliasFactory

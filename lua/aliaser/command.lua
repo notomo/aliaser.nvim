@@ -20,8 +20,9 @@ function M.list()
 end
 
 function M.call(name, ...)
-  local alias, err = AliasFactory.find(name)
-  if err then
+  local alias = AliasFactory.find(name)
+  if type(alias) == "string" then
+    local err = alias
     require("aliaser.vendor.misclib.message").error(err)
   end
   return alias:call(...)

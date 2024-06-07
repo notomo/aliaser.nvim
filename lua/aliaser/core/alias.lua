@@ -25,7 +25,7 @@ function Alias.new(name, rhs, opts)
     _fn = fn,
     _opts = opts,
   }
-  return setmetatable(tbl, Alias), nil
+  return setmetatable(tbl, Alias)
 end
 
 function Alias.call(self, ...)
