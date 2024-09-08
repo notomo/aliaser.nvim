@@ -1,5 +1,6 @@
 local helper = require("aliaser.test.helper")
 local aliaser = helper.require("aliaser")
+local assert = require("assertlib").typed(assert)
 
 describe("aliaser.register_factory()", function()
   before_each(helper.before_each)
@@ -97,8 +98,8 @@ describe("aliaser.call()", function()
 
     local res1, res2 = aliaser.call("test/call", 2)
 
-    assert.is_same(1, res1)
-    assert.is_same(2, res2)
+    assert.same(1, res1)
+    assert.same(2, res2)
   end)
 
   it("shows not found error", function()
@@ -128,7 +129,7 @@ describe("aliaser.to_string()", function()
 
     assert.equal([[require("aliaser").call("test/call")]], actual)
 
-    vim.fn.luaeval(actual)
+    loadstring(actual)()
     assert.is_true(called)
   end)
 
@@ -145,7 +146,7 @@ describe("aliaser.to_string()", function()
 
     assert.equal([[require("aliaser").call("test/call", nil, nil)]], actual)
 
-    vim.fn.luaeval(actual)
+    loadstring(actual)()
     assert.is_true(called)
   end)
 
@@ -162,7 +163,7 @@ describe("aliaser.to_string()", function()
 
     assert.equal([[require("aliaser").call("test/call", "arg1", nil)]], actual)
 
-    vim.fn.luaeval(actual)
+    loadstring(actual)()
     assert.equal("arg1", arg1)
   end)
 end)
