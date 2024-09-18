@@ -14,7 +14,7 @@ list()                                                        *aliaser.list()*
   Gets registered aliases.
 
   Return: ~
-    (AliserAlias[]) |AliserAlias|
+    (AliaserAlias[]) |AliaserAlias|
 
 call({name}, {...})                                           *aliaser.call()*
   Call an alias by name.
@@ -30,7 +30,7 @@ to_string({alias})                                       *aliaser.to_string()*
   Converts an alias to string.
 
   Parameters: ~
-    {alias} (AliserAlias) |AliserAlias|
+    {alias} (AliaserAlias) |AliaserAlias|
 
   Return: ~
     (string) lua expression to call the alias
@@ -41,13 +41,13 @@ clear_all()                                              *aliaser.clear_all()*
 ==============================================================================
 STRUCTURE                                             *aliaser.nvim-STRUCTURE*
 
-AliserAlias                                                      *AliserAlias*
+AliaserAlias                                                    *AliaserAlias*
 
 - {name} (string)
 - {file_path} (string) alias function defined file path
 - {start_row} (integer) alias function defined positon row
-- {call} (fun(self:AliserAlias,...):any) call alias function.
-- {need_args} (fun(self:AliserAlias):boolean) returns true if alias function needs arguments.
+- {call} (fun(self:AliaserAlias,...):any) call alias function.
+- {need_args} (fun(self:AliaserAlias):boolean) returns true if alias function needs arguments.
 
 AliaserAliasOption                                        *AliaserAliasOption*
 

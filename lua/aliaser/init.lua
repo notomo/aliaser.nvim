@@ -1,11 +1,11 @@
 local M = {}
 
---- @class AliserAlias
+--- @class AliaserAlias
 --- @field name string
 --- @field file_path string alias function defined file path
 --- @field start_row integer alias function defined positon row
---- @field call fun(self:AliserAlias,...):any call alias function.
---- @field need_args fun(self:AliserAlias):boolean returns true if alias function needs arguments.
+--- @field call fun(self:AliaserAlias,...):any call alias function.
+--- @field need_args fun(self:AliaserAlias):boolean returns true if alias function needs arguments.
 
 --- @class AliaserAliasOption
 --- @field unique boolean? aliaser.list() shows warnings if alias name is not unique.
@@ -23,7 +23,7 @@ function M.register_factory(ns, fn)
 end
 
 --- Gets registered aliases.
---- @return AliserAlias[] # |AliserAlias|
+--- @return AliaserAlias[] # |AliaserAlias|
 function M.list()
   return require("aliaser.command").list()
 end
@@ -37,7 +37,7 @@ function M.call(name, ...)
 end
 
 --- Converts an alias to string.
---- @param alias AliserAlias: |AliserAlias|
+--- @param alias AliaserAlias: |AliaserAlias|
 --- @return string # lua expression to call the alias
 function M.to_string(alias)
   return require("aliaser.command").to_string(alias)

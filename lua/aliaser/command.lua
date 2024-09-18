@@ -24,6 +24,7 @@ function M.call(name, ...)
   if type(alias) == "string" then
     local err = alias
     require("aliaser.vendor.misclib.message").error(err)
+    return
   end
   return alias:call(...)
 end
