@@ -3,10 +3,6 @@ local M = {}
 local AliasFactory = require("aliaser.core.alias_factory")
 
 function M.register_factory(ns, fn)
-  vim.validate({
-    ns = { ns, "string" },
-    fn = { fn, "function" },
-  })
   AliasFactory.register(ns, fn)
 end
 

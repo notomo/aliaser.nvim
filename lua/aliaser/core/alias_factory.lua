@@ -1,8 +1,9 @@
 local AliasFactory = {}
 AliasFactory.__index = AliasFactory
 
+--- @param ns string
+--- @param fn function
 function AliasFactory.new(ns, fn)
-  vim.validate({ ns = { ns, "string" }, fn = { fn, "function" } })
   local tbl = {
     _ns = ns,
     _fn = fn,
@@ -39,9 +40,9 @@ function AliasFactory.list_all()
   return all, errs:error()
 end
 
+--- @param name string
 --- @return AliaserAlias|string
 function AliasFactory.find(name)
-  vim.validate({ name = { name, "string" } })
   for _, alias in ipairs(AliasFactory.list_all()) do
     if alias.name == name then
       return alias

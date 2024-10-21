@@ -1,8 +1,8 @@
 local Aliases = {}
 Aliases.__index = Aliases
 
+--- @param ns string
 function Aliases.new(ns)
-  vim.validate({ ns = { ns, "string" } })
   local tbl = {
     _ns = ns,
     _aliases = require("aliaser.vendor.misclib.collection.ordered_dict").new(),
@@ -12,7 +12,6 @@ function Aliases.new(ns)
 end
 
 function Aliases.set(self, name, rhs, raw_opts)
-  vim.validate({ name = { name, "string" }, opts = { raw_opts, "table", true } })
   local opts = require("aliaser.core.option").new(raw_opts)
 
   local key = ("%s/%s"):format(self._ns, name)

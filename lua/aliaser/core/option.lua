@@ -7,8 +7,8 @@ Option.default = {
   default_args = {},
 }
 
+--- @param raw_opts table?
 function Option.new(raw_opts)
-  vim.validate({ raw_opts = { raw_opts, "table", true } })
   raw_opts = raw_opts or {}
   local tbl = vim.tbl_deep_extend("force", Option.default, raw_opts)
   return setmetatable(tbl, Option)

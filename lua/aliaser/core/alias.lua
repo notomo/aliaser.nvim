@@ -1,12 +1,10 @@
 local Alias = {}
 Alias.__index = Alias
 
+--- @param name string
+--- @param rhs string|function
+--- @param opts table
 function Alias.new(name, rhs, opts)
-  vim.validate({
-    rhs = { rhs, { "function", "string" } },
-    opts = { opts, "table" },
-  })
-
   local fn
   local typ = type(rhs)
   if typ == "function" then

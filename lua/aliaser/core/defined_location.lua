@@ -1,9 +1,9 @@
 local DefinedLocation = {}
 DefinedLocation.__index = DefinedLocation
 
+--- @param rhs string|function
+--- @param depth integer
 function DefinedLocation.new(rhs, depth)
-  vim.validate({ depth = { depth, "number" } })
-
   local info
   local start_row
   if type(rhs) == "function" then
