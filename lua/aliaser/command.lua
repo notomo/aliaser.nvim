@@ -19,8 +19,7 @@ function M.call(name, ...)
   local alias = AliasFactory.find(name)
   if type(alias) == "string" then
     local err = alias
-    require("aliaser.vendor.misclib.message").error(err)
-    return
+    error(require("aliaser.vendor.misclib.message").wrap(err), 0)
   end
   return alias:call(...)
 end
