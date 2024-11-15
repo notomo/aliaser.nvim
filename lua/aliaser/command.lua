@@ -10,7 +10,7 @@ function M.list()
   local raw_aliases, err = AliasFactory.list_all()
   if err then
     -- no return
-    require("aliaser.vendor.misclib.message").warn(err)
+    vim.notify("[aliaser] " .. err, vim.log.levels.WARN)
   end
   return raw_aliases
 end
@@ -19,7 +19,7 @@ function M.call(name, ...)
   local alias = AliasFactory.find(name)
   if type(alias) == "string" then
     local err = alias
-    error(require("aliaser.vendor.misclib.message").wrap(err), 0)
+    error("[aliaser] " .. err, 0)
   end
   return alias:call(...)
 end
