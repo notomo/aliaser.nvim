@@ -3,28 +3,14 @@
 ==============================================================================
 Lua module: aliaser                                     *aliaser.nvim-aliaser*
 
-register_factory({ns}, {fn})                      *aliaser.register_factory()*
-  Register an alias factory function.
+list({module_names})                                          *aliaser.list()*
+  Gets aliases.
 
   Parameters: ~
-    {ns} (string) namespace for aliases
-    {fn} (fun(aliases:AliaserAliases)) register aliases in this function. |AliaserAliases|
-
-list()                                                        *aliaser.list()*
-  Gets registered aliases.
+    {module_names} (string[]) names to require module
 
   Return: ~
     (AliaserAlias[]) |AliaserAlias|
-
-call({name}, {...})                                           *aliaser.call()*
-  Call an alias by name.
-
-  Parameters: ~
-    {name} (string) alias name
-    {...} (any) alias function arguments
-
-  Return: ~
-    (any) alias function result
 
 to_string({alias})                                       *aliaser.to_string()*
   Converts an alias to string.
@@ -35,45 +21,38 @@ to_string({alias})                                       *aliaser.to_string()*
   Return: ~
     (string) lua expression to call the alias
 
-clear_all()                                              *aliaser.clear_all()*
-  Clear all registered aliases.
-
 ==============================================================================
 STRUCTURE                                             *aliaser.nvim-STRUCTURE*
 
 AliaserAlias                                                    *AliaserAlias*
 
 - {name} (string)
+- {module_name} (string)
 - {file_path} (string) alias function defined file path
 - {start_row} (integer) alias function defined positon row
-- {call} (fun(self:AliaserAlias,...):any) call alias function.
-- {need_args} (fun(self:AliaserAlias):boolean) returns true if alias function needs arguments.
-
-AliaserAliasOption                                        *AliaserAliasOption*
-
-- {unique} (boolean?) aliaser.list() shows warnings if alias name is not unique.
-- {nargs_max} (integer?) alias function max number of argument
-- {default_args} (string[]?) alias function defualt arguments
-
-AliaserAliases                                                *AliaserAliases*
-
-- {set} (fun(self:AliaserAliases,name:string,rhs:string|fun(),opts:AliaserAliasOption?)) |AliaserAliasOption|
+- {params_count} (integer) alias function parameter count
+- {call} (fun(...):any) call alias function.
 
 ==============================================================================
 EXAMPLES                                               *aliaser.nvim-EXAMPLES*
 
+./lua/aliaser/test/example.lua:
+>lua
+  local M = {}
+
+  function M.clear_messages()
+    vim.cmd.message("clear")
+  end
+
+  return M
+<
+
+usage:
 >lua
   local aliaser = require("aliaser")
 
-  aliaser.register_factory("example", function(aliases)
-    aliases:set("clear_messages", "messages clear")
-    aliases:set("rename", function()
-      vim.fn.feedkeys(":file ", "n")
-    end)
-  end)
-
-  local alias = aliaser.list()[1]
-  alias:call() -- messages clear
+  local alias = aliaser.list({ "aliaser.test.example" })[1]
+  alias.call()
 <
 
 ==============================================================================

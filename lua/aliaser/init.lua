@@ -2,38 +2,17 @@ local M = {}
 
 --- @class AliaserAlias
 --- @field name string
+--- @field module_name string
 --- @field file_path string alias function defined file path
 --- @field start_row integer alias function defined positon row
---- @field call fun(self:AliaserAlias,...):any call alias function.
---- @field need_args fun(self:AliaserAlias):boolean returns true if alias function needs arguments.
+--- @field params_count integer alias function parameter count
+--- @field call fun(...):any call alias function.
 
---- @class AliaserAliasOption
---- @field unique boolean? aliaser.list() shows warnings if alias name is not unique.
---- @field nargs_max integer? alias function max number of argument
---- @field default_args string[]? alias function defualt arguments
-
---- @class AliaserAliases
---- @field set fun(self:AliaserAliases,name:string,rhs:string|fun(),opts:AliaserAliasOption?) |AliaserAliasOption|
-
---- Register an alias factory function.
---- @param ns string: namespace for aliases
---- @param fn fun(aliases:AliaserAliases) register aliases in this function. |AliaserAliases|
-function M.register_factory(ns, fn)
-  require("aliaser.command").register_factory(ns, fn)
-end
-
---- Gets registered aliases.
+--- Gets aliases.
+--- @param module_names string[]: names to require module
 --- @return AliaserAlias[] # |AliaserAlias|
-function M.list()
-  return require("aliaser.command").list()
-end
-
---- Call an alias by name.
---- @param name string: alias name
---- @param ... any alias function arguments
---- @return any # alias function result
-function M.call(name, ...)
-  return require("aliaser.command").call(name, ...)
+function M.list(module_names)
+  return require("aliaser.command").list(module_names)
 end
 
 --- Converts an alias to string.
@@ -41,11 +20,6 @@ end
 --- @return string # lua expression to call the alias
 function M.to_string(alias)
   return require("aliaser.command").to_string(alias)
-end
-
---- Clear all registered aliases.
-function M.clear_all()
-  require("aliaser.command").clear_all()
 end
 
 return M
