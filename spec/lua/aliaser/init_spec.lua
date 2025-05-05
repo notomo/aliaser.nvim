@@ -6,11 +6,13 @@ describe("aliaser.list()", function()
   before_each(helper.before_each)
   after_each(helper.after_each)
 
-  it("has file_path and start_row", function()
+  it("has file_path, start_row, module_name, name", function()
     local alias = aliaser.list({ "aliaser.test.data.function_in_3" })[1]
 
     assert.equal(3, alias.start_row)
     assert.equal(0, alias.params_count)
+    assert.equal("aliaser.test.data.function_in_3", alias.module_name)
+    assert.equal("hoge", alias.name)
     assert.equal(helper.root .. "/lua/aliaser/test/data/function_in_3.lua", alias.file_path)
   end)
 
@@ -18,6 +20,12 @@ describe("aliaser.list()", function()
     local alias = aliaser.list({ "aliaser.test.data.function_with_arg_in_3" })[1]
 
     assert.equal(2, alias.params_count)
+  end)
+
+  it("has call", function()
+    local alias = aliaser.list({ "aliaser.test.data.function_increment_in_3" })[1]
+
+    assert.equal(3, alias.call(2))
   end)
 end)
 
