@@ -1,6 +1,8 @@
+local ntf = require("ntf")
+local describe, it, before_each, after_each = ntf.describe, ntf.it, ntf.before_each, ntf.after_each
 local helper = require("aliaser.test.helper")
-local aliaser = helper.require("aliaser")
-local assert = require("assertlib").typed(assert)
+local aliaser = require("aliaser")
+local assert = require("assertlib").typed(ntf.assert)
 
 describe("aliaser.list()", function()
   before_each(helper.before_each)
