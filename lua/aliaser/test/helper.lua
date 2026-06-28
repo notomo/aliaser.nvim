@@ -9,7 +9,7 @@ helper.runtimepath = vim.o.runtimepath
 
 function helper.before_each()
   vim.o.runtimepath = helper.runtimepath
-  helper.test_data = require("aliaser.vendor.misclib.test.data_dir").setup(helper.root, { base_dir = "spec/test_data/" })
+  helper.test_data = require("aliaser.vendor.misclib.test.data_dir").setup(vim.fs.joinpath(helper.root, "spec"))
   vim.opt.runtimepath:append(helper.test_data:path(""))
 end
 
